@@ -9,7 +9,7 @@ This project involves developing a task management tool similar to Jira using th
 <b>User Avatar Tooltip</b>
 
 <b>Objective</b>: Enhance user interface by displaying tooltips when hovering over user avatar icons.\
-<b>Details</b>: Tooltips should display user's name.\
+<b>Details</b>: Tooltips should display user's name and the name should have capitalized first letter.\
 <b>User Impact</b>: Improves user recognition and communication efficiency.\
 <b>Testing Considerations</b>: Ensure tooltips are correctly displayed on all pages where user avatars are present.
 
