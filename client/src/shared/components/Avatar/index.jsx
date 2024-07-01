@@ -14,7 +14,7 @@ const defaultProps = {
   className: undefined,
   avatarUrl: null,
   name: '',
-  size: 32,
+  size: 33,
 };
 
 const Avatar = ({ className, avatarUrl, name, size, ...otherProps }) => {
