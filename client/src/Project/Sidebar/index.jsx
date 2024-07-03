@@ -9,6 +9,7 @@ import { Icon, ProjectAvatar } from 'shared/components';
 import useCurrentUser from 'shared/hooks/currentUser';
 
 import {
+  ArrowButton,
   Sidebar,
   ProjectInfo,
   ProjectTexts,
@@ -48,7 +49,7 @@ const ProjectSidebar = ({projects, setCurrentProject, currentProject }) => {
   const match = useRouteMatch();
   const { currentUser } = useCurrentUser();
   const [selectedProject, setSelectedProject] = useState(currentProject);
-
+  const [isCollapsed, setIsCollapsed] = useState(false)
   useEffect(() => {
       if (currentProject) {
         setSelectedProject(currentProject);
@@ -59,9 +60,12 @@ const ProjectSidebar = ({projects, setCurrentProject, currentProject }) => {
     setCurrentProject(data);
     setSelectedProject(data)
   }
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  }
 
   return (
-    <Sidebar>
+    <Sidebar isCollapsed={isCollapsed}>
       <div
         style={{marginTop: 10, marginBottom: 10}}
       >
@@ -85,6 +89,7 @@ const ProjectSidebar = ({projects, setCurrentProject, currentProject }) => {
           />
         )}
       </div>
+      <ArrowButton onClick={toggleCollapse}>{ isCollapsed ? '>>' : '<<'}</ArrowButton>
 
       {renderLinkItem(match, 'Kanban Board', 'board', '/board')}
       {currentUser && currentUser.isAdmin && renderLinkItem(match, 'Users', 'user', '/users')}

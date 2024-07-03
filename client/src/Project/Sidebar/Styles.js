@@ -12,14 +12,26 @@ export const Sidebar = styled.div`
   padding: 0 16px 24px;
   background: ${color.backgroundLightest};
   border-right: 1px solid ${color.borderLightest};
+  box-shadow: 0.5px 0px 10px 0px black;
   ${mixin.scrollableY}
   ${mixin.customScrollbar()}
+  margin-left:${props => (props.isCollapsed ? '-200px' : '0px')}
   @media (max-width: 1100px) {
     width: ${sizes.secondarySideBarWidth - 10}px;
   }
   @media (max-width: 999px) {
     display: none;
   }
+`;
+export const ArrowButton = styled.button`
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  z-index: 99;
+  padding: 0.5rem;
+  background: ${color.primary};
+  border-radius: 10px;
+  color: white;
 `;
 
 export const ProjectInfo = styled.div`
