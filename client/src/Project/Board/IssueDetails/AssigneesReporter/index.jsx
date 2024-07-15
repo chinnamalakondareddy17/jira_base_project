@@ -6,6 +6,7 @@ import { Avatar, Select, Icon } from 'shared/components';
 
 import { SectionTitle } from '../Styles';
 import { User, Username } from './Styles';
+import useCurrentUser from 'shared/hooks/currentUser';
 
 const propTypes = {
   issue: PropTypes.object.isRequired,
@@ -17,7 +18,11 @@ const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, project
   const getUserById = userId => projectUsers.find(user => user._id === userId);
 
   const userOptions = projectUsers.map(user => ({ value: user._id, label: user.name }));
+  const {currentUser} = useCurrentUser();
+  console.log(currentUser);
 
+  const isAdmin = currentUser.isAdmin; 
+  const cursorStyle = isAdmin ? "not-allowed" : "cursor"
   return (
     <Fragment>
       <SectionTitle>Assignees</SectionTitle>
@@ -30,12 +35,15 @@ const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, project
         value={issue.users.map(user => user._id)}
         options={userOptions}
         onChange={userIds => {
+          if (isAdmin) {
           updateIssue({ userIds, users: userIds.map(getUserById) });
+        }
         }}
         renderValue={({ value: userId, removeOptionValue }) =>
           renderUser(getUserById(userId), true, removeOptionValue)
         }
         renderOption={({ value: userId }) => renderUser(getUserById(userId), false)}
+        isDisabled={!isAdmin}
       />
 
       <SectionTitle>Reporter</SectionTitle>
@@ -46,9 +54,13 @@ const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, project
         name="reporter"
         value={issue.reporterId}
         options={userOptions}
-        onChange={userId => updateIssue({ reporterId: userId })}
+        onChange={userId => { 
+          if (isAdmin) {
+          updateIssue({ reporterId: userId })}
+        }}
         renderValue={({ value: userId }) => renderUser(getUserById(userId), true)}
         renderOption={({ value: userId }) => renderUser(getUserById(userId))}
+        isDisabled={!isAdmin} 
       />
     </Fragment>
   );

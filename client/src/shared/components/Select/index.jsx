@@ -32,6 +32,7 @@ const propTypes = {
   withClearValue: PropTypes.bool,
   renderValue: PropTypes.func,
   renderOption: PropTypes.func,
+  isDisabled: PropTypes.bool
 };
 
 const defaultProps = {
@@ -48,6 +49,7 @@ const defaultProps = {
   withClearValue: true,
   renderValue: undefined,
   renderOption: undefined,
+  isDisabled: false
 };
 
 const Select = ({
@@ -66,6 +68,7 @@ const Select = ({
   withClearValue,
   renderValue: propsRenderValue,
   renderOption: propsRenderOption,
+  isDisabled
 }) => {
   const [stateValue, setStateValue] = useState(defaultValue || (isMulti ? [] : null));
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -181,7 +184,7 @@ const Select = ({
         )}
       </ValueContainer>
 
-      {isDropdownOpen && (
+      {isDropdownOpen && !isDisabled && (
         <Dropdown
           dropdownWidth={dropdownWidth}
           value={value}
