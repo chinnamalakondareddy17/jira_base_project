@@ -23,7 +23,7 @@ export const Sidebar = styled.div`
     display: none;
   }
 `;
-export const ArrowButton = styled.button`
+export const Button = styled.button`
   position: absolute;
   top: 200px;
   left: 200px;

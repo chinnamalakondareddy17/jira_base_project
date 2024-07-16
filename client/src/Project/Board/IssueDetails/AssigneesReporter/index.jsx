@@ -27,16 +27,17 @@ const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, project
     <Fragment>
       <SectionTitle>Assignees</SectionTitle>
       <Select
-        isMulti
+        // isMulti
         variant="empty"
         dropdownWidth={343}
         placeholder="Unassigned"
         name="assignees"
-        value={issue.users.map(user => user._id)}
+        value={ issue.users[0] && issue.users[0]._id}
+        // value={issue.users.length > 0 ? issue.users._id : null}
         options={userOptions}
         onChange={userIds => {
           if (isAdmin) {
-          updateIssue({ userIds, users: userIds.map(getUserById) });
+          updateIssue({ users: [getUserById(userIds)] });
         }
         }}
         renderValue={({ value: userId, removeOptionValue }) =>
@@ -45,6 +46,7 @@ const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, project
         renderOption={({ value: userId }) => renderUser(getUserById(userId), false)}
         isDisabled={!isAdmin}
       />
+      
 
       <SectionTitle>Reporter</SectionTitle>
       <Select
